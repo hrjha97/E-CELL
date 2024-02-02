@@ -7,6 +7,7 @@ interface IStudent extends Document{
     interest: string[];
     skills?: string[];
     resume?: string;
+    qna?  : any,
 }
 
 export default IStudent;

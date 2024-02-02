@@ -31,4 +31,18 @@ router.post('/', jwtAuthMiddleware ,async(req:Request, res:Response)=>{
     }
 })
 
+router.get('/',jwtAuthMiddleware,async(req: Request, res:Response)=>{
+  const {userId} = req.body;
+  if (!prompt || !userId) {
+    return res.status(400).send({ error: "Missing prompt or userId field" });
+  }
+   const students =await Student.findOne({userId});
+   if(!students) return res.status(404).json('No Data found');
+    else {
+      return res.status(200).json(students);
+    }
+   
+})
+
+
 export default router;
