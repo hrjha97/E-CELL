@@ -33,7 +33,6 @@ export const QnARetrival = async (question: string, websearch: boolean): Promise
     const llm = new ChatOpenAI({
       openAIApiKey: process.env.OPENAI_API_KEY,
       temperature: 0,
-      cache: true,
       maxTokens: 1000,
     });
 
@@ -86,15 +85,15 @@ export const QnARetrival = async (question: string, websearch: boolean): Promise
         );
       }
     }
-    // const chain = prompt.pipe(llm);
+    const chain = prompt.pipe(llm);
 
-    // const output = await chain.invoke({
-    //   query: question,
-    // });
+    const output = await chain.invoke({
+      query: question,
+    });
+    const response = {text : output?.lc_kwargs['content']}
+    await setAsync(cacheKey, JSON.stringify(response));
 
-    // await setAsync(cacheKey, JSON.stringify(output));
-    // console.log(output)
-    // return output;
+    return response;
   } catch (error) {
     console.log(error);
     return error;

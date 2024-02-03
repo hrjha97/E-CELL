@@ -8,12 +8,13 @@ dotenv.config();
 
 import "./api/v1/models/mongodb";
 import bodyParser from "body-parser";
-import { QnARetrival } from "./api/v1/services/langchain";
+import cors from 'cors'
 
 const app = express();
 
 const PORT = 8001;
 
+app.use(cors())
 // adding body parser
 app.use(bodyParser.json());
 
@@ -21,16 +22,7 @@ app.get("/", (req: Request, res: Response) => {
   res.status(200).json("Hello World !");
 });
 
-// app.post("/qna", async (req: Request, res: Response) => {
-//   console.log("QNA API called");
-//   const { prompt } = req.body;
-//   if (!prompt) {
-//     return res.send({ error: "Missing prompt field" });
-//   }
-//   const response = await QnARetrival(prompt);
-//   console.log(response);
-//   return res.send(response);
-// });
+
 app.use("/", register);
 app.use("/", studentDetails);
 app.use("/",qnaAdvise)
