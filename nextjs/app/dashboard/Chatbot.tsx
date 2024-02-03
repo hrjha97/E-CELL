@@ -1,49 +1,113 @@
-// Chatbot.tsx
-"use client"
-import React, { useState } from 'react';
-import { Switch } from './Switch';
+"use client";
+
+import React, { useEffect, useState, useRef } from "react";
+import { Switch } from "./Switch";
+import { QnARetrival } from "../api/QnARetrival";
+import Loading from "@/components/Loading";
 
 interface Message {
   text: string;
-  sender: 'user' | 'bot';
+  sender: "user" | "bot";
 }
 
-const Chatbot: React.FC = () => {
+interface ChatbotProps {
+  qnaData: any[];
+}
+
+const Chatbot: React.FC<ChatbotProps> = ({ qnaData }) => {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [newMessage, setNewMessage] = useState<string>('');
+  const [newMessage, setNewMessage] = useState<string>("");
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const [loading, setLoading] = useState(false);
+  const [disableSubmit, setDisableSubmit] = useState(false);
 
-  const handleSendMessage = () => {
-    if (newMessage.trim() === '') return;
+  const userId = localStorage.getItem("userId");
+  if (!userId) {
+    alert("User Id is not identified!");
+  }
 
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { text: newMessage, sender: 'user' },
-    ]);
+  // Function to populate chat history with qnaData
+  const populateChatHistory = () => {
+    const newMessages: Message[] = qnaData
+      .map((data) => [
+        { text: data.question, sender: "user" },
+        { text: data.answer, sender: "bot" },
+      ])
+      .flat() as Message[];
 
-    setNewMessage('');
+    setMessages(newMessages);
+    scrollToBottom();
+  };
+
+  useEffect(() => {
+    populateChatHistory();
+  }, [qnaData]);
+
+  const handleSendMessage = async () => {
+    if (newMessage.trim() === "" || loading) return;
+
+    // Update chat history with the user's message
+    const userMessage: Message = { text: newMessage, sender: "user" };
+    setMessages((prevMessages) => [...prevMessages, userMessage]);
+
+    setNewMessage("");
+    setDisableSubmit(true);
+
+    // Scroll to bottom after updating messages
+    scrollToBottom();
 
     // Simulate bot response after a delay
-    setTimeout(() => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: 'Bot response', sender: 'bot' },
-      ]);
-    }, 500);
+    try {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        alert("User Id is not identified!");
+        return;
+      }
+
+      setLoading(true);
+
+      const botResponse = await QnARetrival({
+        prompt: newMessage,
+        studentId: userId,
+        websearch: true,
+      });
+
+      console.log(botResponse);
+      const botMessage: Message = { text: botResponse.text, sender: "bot" };
+      setMessages((prevMessages) => [...prevMessages, botMessage]);
+    } catch (error) {
+      alert(error);
+    } finally {
+      setLoading(false);
+      setDisableSubmit(false);
+    }
+  };
+
+  const scrollToBottom = () => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop =
+        chatContainerRef.current.scrollHeight;
+    }
   };
 
   return (
     <div className="min-h-screen flex flex-col overflow-hidden">
-      <div className="flex-1 overflow-y-auto p-4 max-h-[calc(100vh-50px)]">
+      <div
+        ref={chatContainerRef}
+        className="flex-1 overflow-y-auto p-4 max-h-[calc(100vh-50px)]"
+      >
         {messages.map((message, index) => (
           <div
             key={index}
             className={`mb-4 ${
-              message.sender === 'user' ? 'text-right' : 'text-left'
+              message.sender === "user" ? "text-right" : "text-left"
             }`}
           >
             <span
               className={`inline-block p-2 rounded-lg ${
-                message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200'
+                message.sender === "user"
+                  ? "bg-blue-900 text-white"
+                  : "bg-sky-600"
               }`}
             >
               {message.text}
@@ -53,8 +117,8 @@ const Chatbot: React.FC = () => {
       </div>
 
       <div className="p-4">
-       
         <div className="flex">
+        <Switch/>
           <input
             type="text"
             className="flex-1 border p-2 mr-2"
@@ -65,8 +129,9 @@ const Chatbot: React.FC = () => {
           <button
             className="bg-blue-500 text-white p-2 rounded"
             onClick={handleSendMessage}
+            disabled={disableSubmit}
           >
-            Send
+            {loading?<Loading />:(<div>Send</div>)}
           </button>
         </div>
       </div>
