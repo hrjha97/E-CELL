@@ -1,6 +1,7 @@
 // Chatbot.tsx
-"use client";
+"use client"
 import React, { useState } from 'react';
+import { Switch } from './Switch';
 
 interface Message {
   text: string;
@@ -52,6 +53,7 @@ const Chatbot: React.FC = () => {
       </div>
 
       <div className="p-4">
+       
         <div className="flex">
           <input
             type="text"

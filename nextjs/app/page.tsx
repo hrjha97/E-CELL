@@ -2,36 +2,7 @@ import React from "react";
 const app = () => {
   return (
     <>
-      {/* navbar goes from here */}
-      <nav
-        className="w-full h-20 bg-gray-100 flex justify-between border-none
-     px-5 md:px-5 items-center "
-      >
-        <div className="text-3xl text-gray-800 font-bold font-serif leading-8 flex flex-row border-0">
-          Mira Bot
-          <img
-            className="h-[30px] w-[30px] ml-2 border-none shadow "
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4CTjAI8OdRCg72oAwI97qPoNHyKeYdE98xK6z6EwEJQATw5qQ2aNTAcuNZOPg3idkwS4&usqp=CAU"
-          />
-        </div>
-        <ul className="md:flex font-semibold hidden font-sans ">
-          <li className="mx-[10px] text-gray-800 cursor-pointer">Home</li>
-          <li className="mx-[10px] text-gray-800 cursor-pointer">About</li>
-          <li className="mx-[10px] text-gray-800 cursor-pointer">Contact Us</li>
-        </ul>
-        <div
-          className="hidden md:block px-2 py-2 bg-indigo-600 text-white rounded
-   font-bold cursor-pointer"
-        >
-          <button>Login/Signup</button>
-        </div>
-        <div className="md:hidden">
-          <a className="text-4xl" href="#">
-            ≡
-          </a>
-        </div>
-      </nav>
-      {/* nav bar ends here */}
+     <p className = "text-5xl">Mira AI</p>
       <header className="w-full h-auto ">
         <div className="absolute inset-y-0 flex flex-col left-px text-centerr">
           <p className="  font-bold text-gray-800 font-serif text-2xl md:text-3xl p-3 mt-[120px] ml-[30px] rounded-lg ">
