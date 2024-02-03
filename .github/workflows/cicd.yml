@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: self-hosted
 
     strategy:
@@ -24,9 +23,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-
-      - name: Change to Backend Directory
-        run: cd backend
+        working-directory: backend
 
       - name: Install Dependencies
         run: npm ci
