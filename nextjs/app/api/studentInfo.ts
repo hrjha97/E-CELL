@@ -13,12 +13,14 @@ type IstudentInfo = {
 export const studentInfo=async(payload: IstudentInfo) =>{
     const token = localStorage.getItem('token');
     const url = serverUrl({Production : true})
-    const response = await axios.post(url+'/studentdetail' ,payload,{
-        headers: {
-            Authorization: `Bearer ${token}`,
-          },
-    }) 
-    return response.data;
+    if(token){
+        const response = await axios.post(url+'/studentdetail' ,payload,{
+            headers: {
+                Authorization: `Bearer ${token.replace(/["']/g, '')}`,
+              },
+        }) 
+        return response.data;
+    }
 }
 
 export const getstudentInfo=async()=>{

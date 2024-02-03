@@ -16,7 +16,7 @@ const App = () => {
             <p className="font-extrabold text-gray-800 font-serif text-xl md:text-2xl mb-10  decoration-sky-600 hover:decoration-blue-400">
               We will help you find the right career path.
             </p>
-            <p className="tracking-wide font-serif text-sm md:text-lg text-gray-900 text-justify">
+            <p className="tracking-wide font-serif text-sm md:text-lg text-gray-900 text-justify md:mb-5">
               Discover tailored career advice at your fingertips. Our chatbot
               transforms the maze of career choices into a clear path for your
               success. Whether you're delving into AI and ML or exploring other
@@ -26,7 +26,7 @@ const App = () => {
               journey. Your future begins here!
             </p>
           </div>
-          <Link href='/dashboard' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg ml-5 md:ml-10  md:mb-0 md:mt-10">
+          <Link href='/signin' className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg ml-5 md:ml-10  md:mb-0 md:mt-14">
             Try It Now
           </Link>
         </div>
@@ -42,4 +42,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default App;

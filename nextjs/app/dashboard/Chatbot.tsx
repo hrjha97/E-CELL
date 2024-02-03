@@ -20,13 +20,10 @@ const Chatbot: React.FC<ChatbotProps> = ({ qnaData }) => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(false);
   const [disableSubmit, setDisableSubmit] = useState(false);
+  const [webSearch, setWebSearch] = useState(false);
 
-  const userId = localStorage.getItem("userId");
-  if (!userId) {
-    alert("User Id is not identified!");
-  }
+  typeof localStorage !== 'undefined' ? localStorage.getItem('userId') : null;
 
-  // Function to populate chat history with qnaData
   const populateChatHistory = () => {
     const newMessages: Message[] = qnaData
       .map((data) => [
@@ -42,7 +39,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ qnaData }) => {
   useEffect(() => {
     populateChatHistory();
   }, [qnaData]);
-
+  console.log(webSearch)
   const handleSendMessage = async () => {
     if (newMessage.trim() === "" || loading) return;
 
@@ -69,7 +66,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ qnaData }) => {
       const botResponse = await QnARetrival({
         prompt: newMessage,
         studentId: userId,
-        websearch: true,
+        websearch: webSearch,
       });
 
       console.log(botResponse);
@@ -118,7 +115,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ qnaData }) => {
 
       <div className="p-4">
         <div className="flex">
-        <Switch/>
+        <Switch setWebSearch={setWebSearch} />
           <input
             type="text"
             className="flex-1 border p-2 mr-2"

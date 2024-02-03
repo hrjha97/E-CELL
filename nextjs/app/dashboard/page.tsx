@@ -3,10 +3,25 @@
 import React, { useEffect, useState } from 'react';
 import { getstudentInfo } from '../api/studentInfo';
 import Chatbot from './Chatbot';
+import Link from 'next/link';
+import Logo from '@/components/Logo';
+import ThemeSwitcher from '@/components/ThemeSwitcher';
+import Prompt from '../Prompt';
 
 const page: React.FC = () => {
   const [Qna, setQna] = useState([])
   const [studentData, setStudentData] = useState([]);
+  const [token, settoken] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const tokens: string | null = localStorage.getItem("token");
+      settoken(tokens);
+    } else {
+      alert("please login!")
+    }
+  }, []);
+  
 
   useEffect(() => {
     const fetchStudentInfo = async () => {
@@ -35,9 +50,15 @@ const page: React.FC = () => {
 
   return (
     <>
+    {token?(<>
+      <nav className="w-full h-20 bg-gray-950 flex justify-between border-none
+     px-5 md:px-5 items-center ">
+      <Logo />
+      <ThemeSwitcher />
+     </nav>
     <div className="h-screen w-[400px] border border-gray-300">
       <div className="flex justify-center">
-        <button className="bg-sky-600 m-3 p-3 rounded-xl">Create New Info</button>
+        <Link href='createinfo' className="bg-sky-600 m-3 p-3 rounded-xl">Create New Info</Link>
       </div>
       
       {/* Map through studentData and render details */}
@@ -54,6 +75,9 @@ const page: React.FC = () => {
       <Chatbot qnaData={Qna} />
     </div>
   </div>
+  </>):(
+    <Prompt/>
+  )}
     </>
   );
 };
