@@ -1,3 +1,5 @@
+name: Node.js CI
+
 on:
   push:
     branches: ["master"]
@@ -6,36 +8,34 @@ on:
 
 jobs:
   build:
+
     runs-on: self-hosted
+
     strategy:
       matrix:
         node-version: [18.x]
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-      - name: Determine Folder
-        id: check_folder
-        run: echo "::set-output name=folder::$(basename "$(pwd)")"
-
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - run: npm ci
+      - name: Change to Backend Directory
+        run: cd backend
+
+      - name: Install Dependencies
+        run: npm ci
 
       - run: |
           touch .env
-          echo "${{secrets.MY_SECRET}}" > .env
+          echo "${{ secrets.MY_SECRET }}" > .env
 
       - name: Install PM2
         run: npm install -g pm2
 
-      - run: |
-          if [ "${{ steps.check_folder.outputs.folder }}" = "backend" ]; then
-            pm2 restart index.js
-          else
-            echo "Skipping PM2 restart for frontend."
-          fi
+      - run: pm2 restart index.js
