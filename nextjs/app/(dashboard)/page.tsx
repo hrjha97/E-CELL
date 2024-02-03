@@ -1,7 +1,16 @@
-import Image from "next/image";
+// App.tsx
 
-export default function Home() {
+import React from 'react';
+import Chatbot from './Chatbot';
+
+const page: React.FC = () => {
   return (
-    <div>Hello</div>
+    <div className="ml-10 border h-screen flex items-center">
+      <div>
+        <Chatbot />
+      </div>
+    </div>
   );
-}
+};
+
+export default page;
