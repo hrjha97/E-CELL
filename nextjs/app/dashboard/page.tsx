@@ -5,7 +5,7 @@ import Chatbot from './Chatbot';
 
 const page: React.FC = () => {
   return (
-    <div className="ml-10 border h-screen flex items-center">
+    <div className="ml-48 border flex items-center">
       <div>
         <Chatbot />
       </div>
