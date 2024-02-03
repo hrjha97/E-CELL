@@ -1,5 +1,6 @@
+"use client"
 // Chatbot.tsx
-"use client";
+
 import React, { useState } from 'react';
 
 interface Message {
@@ -31,10 +32,10 @@ const Chatbot: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col overflow-hidden">
-      <div className="flex-1 overflow-y-auto p-4 max-h-[calc(100vh-50px)]">
+    <div className="min-h-screen flex flex-col ">
+      <div className="flex-1 mt-auto p-2">
         {messages.map((message, index) => (
-          <div
+          <div 
             key={index}
             className={`mb-4 ${
               message.sender === 'user' ? 'text-right' : 'text-left'
@@ -50,10 +51,9 @@ const Chatbot: React.FC = () => {
           </div>
         ))}
       </div>
-
-      <div className="p-4">
-        <div className="flex">
-          <input
+      <div className=" w-full h-auto  ">
+        <div className="flex ">
+          <input 
             type="text"
             className="flex-1 border p-2 mr-2"
             placeholder="Type your message..."
@@ -73,3 +73,4 @@ const Chatbot: React.FC = () => {
 };
 
 export default Chatbot;
+ Chatbot;

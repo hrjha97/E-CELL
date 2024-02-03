@@ -2,15 +2,20 @@
 
 import React from 'react';
 import Chatbot from './Chatbot';
+import Navbar from '../navbar';
 
-const page: React.FC = () => {
+const Page: React.FC = () => {
   return (
-    <div className="ml-48 border flex items-center">
-      <div>
-        <Chatbot />
+    <div className="min-h-screen flex flex-col overflow-hidden">
+      <Navbar />
+
+      <div className="flex-1 flex ml-28 md:ml-64 w-2/3 border -mt-[320px] md:-mt-[680px] ">
+        <div className="flex-1 ">
+          <Chatbot />
+        </div>
       </div>
     </div>
   );
 };
 
-export default page;
+export default Page;
