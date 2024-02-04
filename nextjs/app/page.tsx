@@ -6,7 +6,7 @@ import React from "react";
 
 const App = () => {
   return (
-    <div className="bg-white overflow-hidden h-screen">
+<div className="bg-white overflow-hidden h-screen">
       <div className="flex flex-col md:flex-row">
         <div className="md:w-[550px]">
           <p className="text-4xl text-stone-700 hover:text-stone-900 pl-5 md:pl-10 pt-5 md:pt-10 ">
@@ -19,7 +19,7 @@ const App = () => {
             <p className="tracking-wide font-serif text-sm md:text-lg text-gray-900 text-justify md:mb-5">
               Discover tailored career advice at your fingertips. Our chatbot
               transforms the maze of career choices into a clear path for your
-              success. Whether you're delving into AI and ML or exploring other
+              success. Whether you&apos;re delving into AI and ML or exploring other
               possibilities, this is your destination for insightful and
               actionable career counseling. Uncover the guidance you need to
               stride confidently towards a fulfilling and rewarding professional

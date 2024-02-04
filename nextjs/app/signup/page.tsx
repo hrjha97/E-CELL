@@ -6,7 +6,7 @@ import Loading from '@/components/Loading';
 import { useRouter } from 'next/navigation';
 
 
-const page = () => {
+const Page = () => {
   const router = useRouter()
   const [isLoading, setisLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -164,4 +164,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

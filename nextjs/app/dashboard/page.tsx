@@ -8,7 +8,7 @@ import Logo from '@/components/Logo';
 import ThemeSwitcher from '@/components/ThemeSwitcher';
 import Prompt from '../Prompt';
 
-const page: React.FC = () => {
+const Page: React.FC = () => {
   const [Qna, setQna] = useState([])
   const [studentData, setStudentData] = useState([]);
   const [token, settoken] = useState<string | null>(null);
@@ -88,4 +88,4 @@ const page: React.FC = () => {
   );
 };
 
-export default page;
+export default Page;

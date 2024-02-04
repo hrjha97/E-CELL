@@ -7,7 +7,7 @@ import Loading from "@/components/Loading";
 import { studentInfo } from "../api/studentInfo";
 import Prompt from "../Prompt";
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [token, settoken] = useState<string | null>(null);
@@ -65,7 +65,7 @@ const page = () => {
       // Log the form data
       console.log('Form Data:', formData);
 
-      // Redirect to the dashboard page
+      // Redirect to the dashboard Page
       router.push('/dashboard');
     } catch (error) {
       alert(error);
@@ -207,4 +207,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
