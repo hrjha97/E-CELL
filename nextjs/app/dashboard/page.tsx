@@ -50,34 +50,40 @@ const page: React.FC = () => {
 
   return (
     <>
-    {token?(<>
-      <nav className="w-full h-20 bg-gray-950 flex justify-between border-none
-     px-5 md:px-5 items-center ">
-      <Logo />
-      <ThemeSwitcher />
-     </nav>
-    <div className="h-screen w-[400px] border border-gray-300">
-      <div className="flex justify-center">
-        <Link href='createinfo' className="bg-sky-600 m-3 p-3 rounded-xl">Create New Info</Link>
-      </div>
-      
-      {/* Map through studentData and render details */}
-      <div>
-        {studentData.map((student: any, index) => (
-          <div key={index} onClick={() => handleCreateNewInfo(index)} className="border p-2 m-2">
-            <h3 className='hover:text-sky-400 cursor-pointer'>{student.name}</h3>
+      {token ? (
+        <>
+          <nav className="w-full h-20 bg-gray-900 flex justify-between border-none px-5 md:px-5 items-center">
+            <Logo />
+            <ThemeSwitcher />
+          </nav>
+          <div className="h-screen md:flex">
+            <div className="md:w-1/3 lg:w-1/4 xl:w-1/5 bg-black border-r border-gray-300 p-4">
+              <div className="flex justify-center bg-gray-400">
+                <Link href="createinfo" className="bg-sky-600 m-3 p-3 rounded-xl">
+                  Create New Info
+                </Link>
+              </div>
+              <div>
+                {studentData.map((student: any, index) => (
+                  <div
+                    key={index}
+                    onClick={() => handleCreateNewInfo(index)}
+                    className="border p-2 m-2 cursor-pointer hover:text-black hover:bg-slate-200 "
+                  >
+                    <h3>{student.name}</h3>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="flex-1 md:ml-[300px] md:mr-[200px]">
+              <p className='  bg-black  h-14 w-44   p-4 m-auto text-lg text-white font-serif'>Chat With Mira</p>
+              <Chatbot qnaData={Qna} />
+            </div>
           </div>
-        ))}
-      </div>
-    </div>
-    <div className="flex-1 flex ml-28 md:ml-[500px] w-2/4  -mt-[320px] md:-mt-[700px]">
-    <div className="flex-1 block">
-      <Chatbot qnaData={Qna} />
-    </div>
-  </div>
-  </>):(
-    <Prompt/>
-  )}
+        </>
+      ) : (
+        <Prompt />
+      )}
     </>
   );
 };

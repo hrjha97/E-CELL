@@ -124,11 +124,11 @@ const Chatbot: React.FC<ChatbotProps> = ({ qnaData }) => {
             onChange={(e) => setNewMessage(e.target.value)}
           />
           <button
-            className="bg-blue-500 text-white p-2 rounded"
+            className="bg-blue-500 text-white p-2 rounded hover:bg-black"
             onClick={handleSendMessage}
             disabled={disableSubmit}
           >
-            {loading?<Loading />:(<div>Send</div>)}
+            {loading?<Loading />:(<div>Send  &#10145;</div>)}
           </button>
         </div>
       </div>
