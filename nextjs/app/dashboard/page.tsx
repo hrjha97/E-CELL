@@ -52,13 +52,13 @@ const page: React.FC = () => {
     <>
       {token ? (
         <>
-          <nav className="w-full h-20 bg-gray-900 flex justify-between border-none px-5 md:px-5 items-center">
+          <nav className="w-full h-20 bg-slate-900 flex justify-between border-b-4 px-5 md:px-5 items-center">
             <Logo />
             <ThemeSwitcher />
           </nav>
           <div className="h-screen md:flex">
-            <div className="md:w-1/3 lg:w-1/4 xl:w-1/5 bg-black border-r border-gray-300 p-4">
-              <div className="flex justify-center bg-gray-400">
+            <div className="md:w-1/3 lg:w-1/4 xl:w-1/5 bg-slate-900 border-r border-gray-300 p-4">
+              <div className="flex justify-center">
                 <Link href="createinfo" className="bg-sky-600 m-3 p-3 rounded-xl">
                   Create New Info
                 </Link>
