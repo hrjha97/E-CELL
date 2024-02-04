@@ -34,11 +34,22 @@ jobs:
           touch .env
           echo "${{ secrets.MY_SECRET }}" > .env
 
+      - name: Verify Node.js and npm versions
+        run: |
+          echo "Node version: $(node -v)"
+          echo "NPM version: $(npm -v)"
+
       - name: Build TypeScript
         run: npm run build
 
+      - name: Verify Build Output
+        run: ls dist
+
       - name: Install PM2
         run: npm install -g pm2
+
+      - name: Verify PM2 Version
+        run: pm2 -v
 
       - name: Restart PM2
         run: pm2 restart dist/index.js
