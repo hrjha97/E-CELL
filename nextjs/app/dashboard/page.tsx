@@ -12,6 +12,8 @@ const Page: React.FC = () => {
   const [Qna, setQna] = useState([])
   const [studentData, setStudentData] = useState([]);
   const [token, settoken] = useState<string | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -35,6 +37,18 @@ const Page: React.FC = () => {
 
     fetchStudentInfo();
   }, []);
+  const openSidebar = (event: { preventDefault: () => void; }) => {
+    setIsSidebarOpen(!isSidebarOpen);
+    event?.preventDefault(); // Remove the semicolon here
+  };
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
 
   const handleCreateNewInfo = (index: number) => {
     const clickedStudent:any = studentData[index];
@@ -52,12 +66,23 @@ const Page: React.FC = () => {
     <>
       {token ? (
         <>
-          <nav className="w-full h-20 bg-slate-900 flex justify-between border-b-4 px-5 md:px-5 items-center">
-            <Logo />
+          <nav className="w-full h-20 bg-slate-900 flex justify-between border-b-4 px-5 md:px-5 items-center fixed">
+          <div className='flex justify-between align-middle ' >
+                  
+                  <p onClick={openSidebar} onMouseEnter={handleMouseEnter}
+                   onMouseLeave={handleMouseLeave} className='cursor-pointer mt-6 text-2xl   hover:text-zinc-50 hover:text-opacity-40'>&#9776;
+                   </p>
+                <Logo  />
+               
+                </div>
+
+           
             <ThemeSwitcher />
           </nav>
           <div className="h-screen md:flex">
-            <div className="md:w-1/3 lg:w-1/4 xl:w-1/5 bg-slate-900 border-r border-gray-300 p-4">
+          {isSidebarOpen &&
+
+            (<div className="md:w-1/3 lg:w-1/4 xl:w-1/5 bg-slate-900 border-r border-gray-300 p-4">
               <div className="flex justify-center">
                 <Link href="createinfo" className="bg-sky-600 m-3 p-3 rounded-xl">
                   Create New Info
@@ -74,7 +99,7 @@ const Page: React.FC = () => {
                   </div>
                 ))}
               </div>
-            </div>
+            </div>)}
             <div className="flex-1 md:ml-[300px] md:mr-[200px]">
               <p className='  bg-black  h-14 w-44   p-4 m-auto text-lg text-white font-serif'>Chat With Mira</p>
               <Chatbot qnaData={Qna} />
